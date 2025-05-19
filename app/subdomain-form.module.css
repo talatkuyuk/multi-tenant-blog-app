@@ -1,0 +1,93 @@
+.subdomainForm {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.subdomainField {
+  display: flex;
+  align-items: center;
+}
+
+.subdomainInput {
+  width: 100%;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  z-index: 10;
+}
+
+.suffix {
+  background-color: #f3f4f6;
+  padding: 0 0.75rem;
+  border: 1px solid var(--input);
+  border-left: none;
+  border-radius: 0 0.375rem 0.375rem 0;
+  color: #6b7280;
+  min-height: 36px;
+  display: flex;
+  align-items: center;
+}
+
+.iconCard {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem;
+  border: 1px solid var(--input);
+  border-radius: 0.375rem;
+}
+
+.icon {
+  min-width: 40px;
+  min-height: 40px;
+  display: flex;
+  align-items: center;
+  padding-left: 14px;
+  user-select: none;
+}
+
+.emptyIcon {
+  font-size: 0.875rem;
+  font-weight: 400;
+  color: #9ca3af;
+}
+
+.selectButton {
+  margin-left: auto;
+  border-radius: 0.125rem;
+}
+
+.emojiPicker {
+  height: 300px;
+  width: 256px;
+}
+
+.emojiPopover {
+  width: 256px;
+  padding: 0;
+}
+
+.helperText {
+  font-size: 0.75rem;
+  color: #6b7280;
+}
+
+.errorText {
+  font-size: 0.875rem;
+  color: #ef4444;
+}
