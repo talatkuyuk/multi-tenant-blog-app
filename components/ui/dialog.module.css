@@ -1,0 +1,143 @@
+/* dialog.module.css */
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  background-color: rgba(0, 0, 0, 0.5);
+
+  /* Animation */
+  transition: opacity 200ms;
+}
+.overlay[data-state="open"] {
+  animation: fadeIn 200ms ease-out forwards;
+}
+.overlay[data-state="closed"] {
+  animation: fadeOut 200ms ease-in forwards;
+}
+
+.content {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  z-index: 50;
+  display: grid;
+  gap: 1rem;
+  width: 100%;
+  max-width: calc(100% - 2rem);
+  transform: translate(-50%, -50%);
+  background-color: var(--background);
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--border);
+  transition: opacity 200ms, transform 200ms;
+}
+.content[data-state="open"] {
+  animation: zoomIn 200ms ease-out forwards;
+}
+.content[data-state="closed"] {
+  animation: zoomOut 200ms ease-in forwards;
+}
+
+.close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  opacity: 0.7;
+  border-radius: 0.25rem;
+  transition: opacity 150ms;
+  background-color: var(--accent);
+  color: var(--muted-foreground);
+}
+.close:hover {
+  opacity: 1;
+}
+.close:focus {
+  outline: none;
+  outline: 2px solid var(--color-ring); /* use your color token */
+  outline-offset: 2px;
+}
+
+.close:disabled {
+  pointer-events: none;
+}
+.close svg {
+  pointer-events: none;
+  flex-shrink: 0;
+  width: 1rem;
+  height: 1rem;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  text-align: center;
+}
+@media (min-width: 640px) {
+  .header {
+    text-align: left;
+  }
+}
+
+.footer {
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 0.5rem;
+}
+@media (min-width: 640px) {
+  .footer {
+    flex-direction: row;
+    justify-content: flex-end;
+  }
+}
+
+.title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.description {
+  font-size: 0.875rem;
+  color: var(--muted-foreground);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+@keyframes zoomIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translate(-50%, -50%);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translate(-50%, -50%);
+  }
+}
+@keyframes zoomOut {
+  from {
+    opacity: 1;
+    transform: scale(1) translate(-50%, -50%);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.95) translate(-50%, -50%);
+  }
+}

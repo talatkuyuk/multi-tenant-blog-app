@@ -1,0 +1,22 @@
+.label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem; /* gap-2 */
+  font-size: 0.875rem; /* text-sm */
+  line-height: 1; /* leading-none */
+  font-weight: 500; /* font-medium */
+  user-select: none;
+}
+
+/* Disabled via group data attribute */
+:global([data-disabled="true"]) .label {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+/* Disabled via peer (e.g., associated input) */
+:global(.peer:disabled) ~ .label,
+.label:has(:global(.peer:disabled)) {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
