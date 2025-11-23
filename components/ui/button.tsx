@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Slot } from "@radix-ui/react-slot";
+import { useButton } from "react-aria";
 import { cva, type VariantProps } from "class-variance-authority";
 import { clsx } from "clsx";
 import styles from "./button.module.css";
@@ -29,42 +29,41 @@ const buttonVariants = cva(styles.base, {
 
 interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
-    VariantProps<typeof buttonVariants> {
-  asChild?: boolean;
-}
+    VariantProps<typeof buttonVariants> {}
 
-function Button({
-  className,
-  variant,
-  size,
-  asChild = false,
-  disabled,
-  children,
-  ...props
-}: ButtonProps) {
-  const Comp = asChild ? Slot : "button";
+const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
+  ({ className, variant, size, disabled, children, ...props }, ref) => {
+    // Only pass supported props to useButton
+    const { formAction, value, ...ariaProps } = props;
 
-  const hasIcon = React.Children.toArray(children).some(
-    (child) =>
-      React.isValidElement(child) &&
-      typeof child.type === "string" &&
-      child.type === "svg"
-  );
+    // Tell react-aria we are working with an HTMLButtonElement and
+    // narrow/cast the props so event handler types line up.
+    // Casting here avoids the mismatched FocusEvent/Element types.
+    const { buttonProps } = useButton(
+      {
+        ...(ariaProps as unknown as Record<string, unknown>),
+        isDisabled: disabled,
+      } as any,
+      (ref as React.RefObject<HTMLButtonElement>) ?? null
+    );
 
-  return (
-    <Comp
-      className={clsx(
-        buttonVariants({ variant, size }),
-        hasIcon && "hasIcon",
-        disabled && styles.disabled,
-        className
-      )}
-      disabled={disabled}
-      {...props}
-    >
-      {children}
-    </Comp>
-  );
-}
+    return (
+      <button
+        {...buttonProps}
+        ref={ref}
+        className={clsx(
+          buttonVariants({ variant, size }),
+          disabled && styles.disabled,
+          className
+        )}
+        disabled={disabled}
+        formAction={formAction}
+        value={value}
+      >
+        {children}
+      </button>
+    );
+  }
+);
 
 export { Button, buttonVariants };
